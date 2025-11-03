@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title> 🛒 Amar Dukan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .banner-img { height: 360px; object-fit: cover; }
+    .menu-link.active { background-color: #eef2ff; color: #4338ca; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-40 bg-white/90 backdrop-blur shadow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-4">
+           <div class="flex space-x-1">
+                 <span class="text-xl font-bold text-black font-mono border border-black px-1 py-0.5 rounded">A</span>
+                  <span class="text-xl font-bold text-black font-mono border border-black px-1 py-0.5 rounded">M</span>
+                    <span class="text-xl font-bold text-black font-mono border border-black px-1 py-0.5 rounded">A</span>
+                 <span class="text-xl font-bold text-black font-mono border border-black px-1 py-0.5 rounded">R</span>
+                 <span class="text-xl font-bold text-black font-mono border border-black px-1 py-0.5 rounded">D</span>
+                 <span class="text-xl font-bold text-black font-mono border border-black px-1 py-0.5 rounded">U</span>
+                 <span class="text-xl font-bold text-black font-mono border border-black px-1 py-0.5 rounded">K</span>
+                 <span class="text-xl font-bold text-black font-mono border border-black px-1 py-0.5 rounded">A</span>
+                 <span class="text-xl font-bold text-black font-mono border border-black px-1 py-0.5 rounded">N</span>
+   
+            </div>
+          <nav class="hidden md:flex gap-5 items-center" id="menu">
+            <a href="#home" class="menu-link px-3 py-2 rounded hover:bg-yellow-300 font-bold">Home</a>
+            <a href="#products" class="menu-link px-3 py-2 rounded hover:bg-yellow-300 font-bold">Products</a>
+            <a href="#reviews" class="menu-link px-3 py-2 rounded hover:bg-yellow-300 font-bold">Reviews</a>
+            <a href="#contact" class="menu-link px-3 py-2 rounded hover:bg-yellow-300 font-bold">Contact</a>
+          </nav>
+        </div>
+
+        <div class="flex items-center gap-3 sm:gap-4">
+          <div class="hidden sm:flex items-center gap-2">
+            <div class="text-sm font-bold">Balance: <span id="user-balance">0</span> BDT</div>
+            <button id="add-money" class="px-3 py-1 rounded bg-green-600 text-white text-sm hover:bg-green-700 transition">Add Money</button>
+          </div>
+          <button id="open-cart" class="relative inline-flex items-center px-3 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700 transition">
+            Cart (<span id="cart-count">0</span>)
+          </button>
+          <button id="mobile-toggle" class="md:hidden p-2 rounded hover:bg-gray-100">☰</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 bg-white shadow-lg">
+      <nav class="flex flex-col gap-2">
+        <a href="#home" class="menu-link px-3 py-2 rounded hover:bg-gray-100">Home</a>
+        <a href="#products" class="menu-link px-3 py-2 rounded hover:bg-gray-100">Products</a>
+        <a href="#reviews" class="menu-link px-3 py-2 rounded hover:bg-gray-100">Reviews</a>
+        <a href="#contact" class="menu-link px-3 py-2 rounded hover:bg-gray-100">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pt-20">
+    <!-- HOME -->
+    <section id="home" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+      <div class="relative overflow-hidden rounded-lg shadow-md">
+        <div class="relative">
+          <img id="banner-img" class="w-full banner-img rounded-lg transition-opacity duration-250" src="https://img.pikbest.com/templates/20240815/shopping-banner-design_10726461.jpg!w700wp" alt="banner">
+          
+          <button id="prev-banner" class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded shadow hover:bg-white transition">‹</button>
+          <button id="next-banner" class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded shadow hover:bg-white transition">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 grid grid-cols-1 lg:grid-cols-4 gap-6">
+      
+      <div class="lg:col-span-3">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-2">
+          <h2 class="text-lg sm:text-xl font-serif font-bold">Featured Products</h2>
+          <div class="flex flex-col sm:flex-row gap-2 items-center w-full sm:w-auto">
+            <input id="search" placeholder="Search..." class="px-3 py-2 rounded border w-full sm:w-60" />
+            <select id="sort" class="px-3 py-2 rounded border w-full sm:w-auto">
+              <option value="default">Sort</option>
+              <option value="low">Price: Low to High</option>
+              <option value="high">Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+
+      <!-- CART SIDEBAR -->
+      <aside class="lg:col-span-1 bg-white rounded shadow p-4 sticky top-20 h-fit">
+        <h3 class="font-bold mb-3 border-b pb-2 text-indigo-600">Cart Summary</h3>
+        <div id="cart-items" class="space-y-2 max-h-60 overflow-y-auto mb-3 border-b pb-3"></div>
+        <div class="text-sm space-y-1">
+          <div class="flex justify-between"><span>Subtotal</span><span id="subtotal" class="font-medium">0</span> BDT</div>
+          <div class="flex justify-between"><span>Delivery</span><span id="delivery">00</span> BDT</div>
+          <div class="flex justify-between"><span>Shipping</span><span id="shipping">50</span> BDT</div>
+          <div class="flex justify-between text-red-600 font-medium"><span>Discount</span><span id="discount">0</span> BDT</div>
+          <hr class="my-2 border-dashed">
+          <div class="flex justify-between font-bold text-lg"><span>Total</span><span id="total" class="text-green-700">0</span> BDT</div>
+        </div>
+        <div class="mt-3">
+          <input id="coupon" placeholder="Coupon (SMART10)" class="px-3 py-2 rounded border w-full mb-2" />
+          <button id="apply-coupon" class="w-full bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">Apply</button>
+          <p id="coupon-message" class="text-xs mt-1"></p>
+        </div>
+        <div class="mt-3">
+          <button id="checkout" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">Checkout</button>
+        </div>
+      </aside>
+    </section>
+
+   <!-- REVIEWS & FEEDBACK WRAPPER -->
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 mb-10">
+  <div class="flex flex-col md:flex-row gap-6 items-stretch">
+    
+    <!-- CUSTOMER REVIEWS SECTION -->
+    <section id="reviews" class="flex-1 bg-white rounded shadow p-5 flex flex-col">
+      <h2 class="text-xl font-bold mb-3 text-center text-indigo-700">Customer Reviews</h2>
+      <div class="relative overflow-hidden max-w-md mx-auto flex-1">
+        <div id="reviews-carousel" class="transition-transform duration-300 flex h-full"></div>
+        <div class="flex justify-between mt-3">
+          <button id="prev-review" class="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 transition">←</button>
+          <button id="next-review" class="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 transition">→</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEEDBACK SECTION -->
+    <section id="feedback" class="flex-1 bg-indigo-100 rounded shadow p-5 flex flex-col border border-indigo-200">
+      <h2 class="text-xl font-bold mb-3 text-center text-indigo-700">Feedback</h2>
+      <form id="feedback-form" class="grid grid-cols-1 gap-3 flex-1">
+        <input id="fname" placeholder="Your Name" class="px-3 py-2 rounded border border-indigo-200 focus:ring-indigo-500 focus:border-indigo-500 bg-white/70" required />
+        <textarea id="fopinion" placeholder="Your Opinion" class="px-3 py-2 rounded border border-indigo-200 focus:ring-indigo-500 focus:border-indigo-500 bg-white/70" rows="3" required></textarea>
+        <select id="frating" class="px-3 py-2 rounded border border-indigo-200 focus:ring-indigo-500 focus:border-indigo-500 bg-white/70" required>
+          <option value="" disabled selected>Rating</option>
+          <option>⭐ 1 - Poor</option>
+          <option>⭐⭐ 2 - Fair</option>
+          <option>⭐⭐⭐ 3 - Good</option>
+          <option>⭐⭐⭐⭐ 4 - Very Good</option>
+          <option>⭐⭐⭐⭐⭐ 5 - Excellent</option>
+        </select>
+        <div class="flex justify-end mt-auto">
+          <button type="submit" class="px-5 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700 transition">Submit</button>
+        </div>
+      </form>
+      <div id="feedback-thanks" class="hidden mt-3 p-3 bg-green-100 border border-green-300 text-green-700 rounded text-center font-semibold">
+        ThankYou — your feedback has been submitted!
+      </div>
+    </section>
+
+  </div>
+</section>
+
+
+<!-- CONTACT & ABOUT -->
+<section id="contact" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 mb-10">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Contact -->
+    <div class="bg-white rounded shadow p-5 flex flex-col">
+      <h2 class="text-xl font-bold mb-3 text-center text-indigo-700">Contact Us</h2>
+      <form id="contact-form" class="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-grow">
+        <input id="cname" placeholder="Name" class="px-3 py-2 rounded border focus:ring-indigo-500 focus:border-indigo-500" required />
+        <input id="cemail" placeholder="Email" type="email" class="px-3 py-2 rounded border focus:ring-indigo-500 focus:border-indigo-500" required />
+        <textarea id="cmessage" placeholder="Message" class="px-3 py-2 rounded border sm:col-span-2 focus:ring-indigo-500 focus:border-indigo-500" rows="3" required></textarea>
+        <div class="sm:col-span-2 flex justify-end mt-auto">
+          <button type="submit" class="px-5 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700 transition">Send</button>
+        </div>
+      </form>
+      <div id="contact-thanks" class="hidden mt-3 p-3 bg-green-100 border border-green-300 text-green-700 rounded text-center font-semibold">
+        ThankYou — your message has been received!
+      </div>
+    </div>
+
+    <!-- About -->
+    <div class="bg-white rounded shadow p-5 flex flex-col justify-center">
+      <h2 class="text-xl font-bold mb-3 text-center text-indigo-700">About Us</h2>
+      <p class="text-gray-700 text-center mb-5 leading-relaxed ">
+        Amar Dukan is your trusted online store offering quality products at fair prices. 
+        We aim to make shopping simple, secure, and satisfying for everyone.
+      </p>
+      <div class="flex flex-col gap-2 text-gray-700 text-sm text-center">
+        <div><span class="text-indigo-600 font-semibold">📧</span> support@amardukan.com</div>
+        <div><span class="text-indigo-600 font-semibold">📞</span> +880 1234 567 890</div>
+        <div><span class="text-indigo-600 font-semibold">📍</span> Shop No: 204, CX Building, IIUC</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-gray-300 border-t py-6 text-center">
+  <div class="max-w-7xl mx-auto px-4 text-gray-600">
+    <p class="text-sm font-medium">© <span id="year"></span> Amar Dukan. All rights reserved.</p>
+    <p class="text-xs mt-1 text-gray-700">Made by Adnan Jahangir (C-233106) & Sharjil Bin Rashed (C-233114)</p>
+    <div class="flex justify-center gap-4 mt-4 text-sm">
+      <a href="#home" class="hover:text-indigo-600">Home</a>
+      <a href="#products" class="hover:text-indigo-600">Products</a>
+      <a href="#reviews" class="hover:text-indigo-600">Reviews</a>
+      <a href="#contact" class="hover:text-indigo-600">Contact</a>
+    </div>
+  </div>
+      <button id="back-to-top" class="fixed bottom-6 right-4 bg-indigo-600 text-white p-2 rounded-full shadow-lg hover:bg-indigo-700 transition hidden">Back</button>
+
+</footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
