@@ -1,6 +1,6 @@
 # 🛒 Amar Dukan – Online Shopping Website
 
-*Live Demo:* 👉 [Click Here to Visit]([https://adnan-jahangir.github.io/mid-project/](https://sharjil02.github.io/Mid_Project/))
+*Live Demo:* 👉 [Click Here to Visit](https://sharjil02.github.io/Mid_Project/)
 
 ---
 
