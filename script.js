@@ -148,6 +148,7 @@ function removeFromCart(id, removeAll=false){
 function computeSubtotal(){ return Object.keys(state.cart).reduce((s,k)=>{ const p = products.find(x=>x.id===Number(k)); return s + ((p?.price||0)*state.cart[k]); },0); }
 
 function getDeliveryCharge(subtotal){
+  if(subtotal==0) return 0;
     if(subtotal<100) return 80;
     else if(subtotal<400) return 70;
     else if(subtotal<500) return 65;
